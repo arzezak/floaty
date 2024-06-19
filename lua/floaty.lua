@@ -1,25 +1,12 @@
 local floaty = {}
 
-floaty.open = function(content)
-  local buffer = vim.api.nvim_create_buf(false, true)
+floaty.open_window = function(buffer)
   local height = vim.api.nvim_win_get_height(0)
   local width = vim.api.nvim_win_get_width(0)
   local win_height = math.ceil(height * 0.75)
   local win_width = math.ceil(width * 0.75)
   local col = math.ceil((width - win_width) / 2)
   local row = math.ceil((height - win_height) / 2)
-
-  if type(content) == "table" then
-    vim.api.nvim_buf_set_lines(buffer, 0, -1, false, content)
-  else
-    vim.api.nvim_buf_set_lines(
-      buffer,
-      0,
-      -1,
-      false,
-      vim.split(content, "\n", { plain = true })
-    )
-  end
 
   vim.api.nvim_open_win(buffer, true, {
     border = "single",
@@ -30,6 +17,27 @@ floaty.open = function(content)
     style = "minimal",
     width = win_width,
   })
+end
+
+floaty.open = function(content)
+  local buffer = vim.api.nvim_create_buf(false, true)
+
+  if type(content) == "table" then
+    vim.api.nvim_buf_set_lines(buffer, 0, -1, false, content)
+  else
+    local splitted_content = vim.split(content, "\n", { plain = true })
+    vim.api.nvim_buf_set_lines(buffer, 0, -1, false, splitted_content)
+  end
+
+  floaty.open_window(buffer)
+end
+
+floaty.open_file = function(path)
+  local buffer = vim.api.nvim_create_buf(false, true)
+
+  floaty.open_window(buffer)
+
+  vim.api.nvim_command("edit " .. path)
 end
 
 return floaty
