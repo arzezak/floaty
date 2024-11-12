@@ -1,6 +1,6 @@
 local floaty = {}
 
-floaty.open_window = function(buffer)
+local function open_window(buffer)
   local height = vim.api.nvim_win_get_height(0)
   local width = vim.api.nvim_win_get_width(0)
   local win_height = math.ceil(height * 0.75)
@@ -29,13 +29,13 @@ floaty.open = function(content)
     vim.api.nvim_buf_set_lines(buffer, 0, -1, false, splitted_content)
   end
 
-  floaty.open_window(buffer)
+  open_window(buffer)
 end
 
-floaty.open_file = function(path)
+floaty.file = function(path)
   local buffer = vim.api.nvim_create_buf(false, true)
 
-  floaty.open_window(buffer)
+  open_window(buffer)
 
   vim.api.nvim_command("edit " .. path)
 end

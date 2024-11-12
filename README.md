@@ -14,5 +14,5 @@ require("floaty").open({ "Hello,", "world!" })
 The `open_file` function accepts a path.
 
 ```lua
-require("floaty").open_file("~/Notes/scratch.md")
+require("floaty").file("~/Notes/scratch.md")
 ```
