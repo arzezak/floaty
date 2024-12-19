@@ -8,10 +8,13 @@ The `open` function accepts either a string or a table.
 
 ```lua
 require("floaty").open("Hello, world!")
+```
+
+```lua
 require("floaty").open({ "Hello,", "world!" })
 ```
 
-The `open_file` function accepts a path.
+The `file` function accepts a path.
 
 ```lua
 require("floaty").file("~/Notes/scratch.md")
